@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using MLAPI;
-using MLAPI.Messaging;
+//using MLAPI;
+//using MLAPI.Messaging;
 using System.Linq;
 using Photon.Pun;
 using Photon.Realtime;
@@ -52,8 +52,8 @@ public class WhiteBoardNetwork : MonoBehaviourPun
         switch (net)
         {
             case networkType.MLAPI:
-                NetworkManager.Singleton.OnServerStarted += ServerInit;
-                NetworkManager.Singleton.OnClientConnectedCallback += ClientInit;
+             //   NetworkManager.Singleton.OnServerStarted += ServerInit;
+              //  NetworkManager.Singleton.OnClientConnectedCallback += ClientInit;
                 break;
             case networkType.Photon:
                 PV = GetComponent<PhotonView>();
@@ -72,11 +72,11 @@ public class WhiteBoardNetwork : MonoBehaviourPun
     {
        // if (!IsClient) return;
         Debug.LogError("Client GetServerWhiteBoardTextureServerRpc");
-        GetServerWhiteBoardTextureServerRpc(NetworkManager.Singleton.LocalClientId);
+      //  GetServerWhiteBoardTextureServerRpc(NetworkManager.Singleton.LocalClientId);
     }
 
 
-    [ServerRpc(RequireOwnership = false)]
+ //   [ServerRpc(RequireOwnership = false)]
     public void GetServerWhiteBoardTextureServerRpc(ulong cid)
     {
         Debug.LogError("GetServerWhiteBoardTextureServerRpc:" + cid);
@@ -85,10 +85,10 @@ public class WhiteBoardNetwork : MonoBehaviourPun
         byte[] textureColorArray = WhiteBoardTexture.EncodeToPNG();
         WhiteBoardTexture.LoadImage(textureColorArray);
         WhiteBoardTexture.Apply();
-        StartCoroutine( DelaySendTextureData(textureColorArray, cid));
+       // StartCoroutine( DelaySendTextureData(textureColorArray, cid));
         
     }
-
+    /*
     IEnumerator DelaySendTextureData(byte[] textureColorArray, ulong cid)
     {
         ClientRpcParams clientRpcParams = new ClientRpcParams
@@ -148,7 +148,7 @@ public class WhiteBoardNetwork : MonoBehaviourPun
     }
 
 
-
+    */
 
 
 
@@ -189,7 +189,7 @@ public class WhiteBoardNetwork : MonoBehaviourPun
             */
     }
 
-    [ClientRpc]
+   // [ClientRpc]
     private void DrawTextureToClientRpc(DrawData dd)
     {
         Debug.LogError("Draw By Other Clients");
@@ -217,13 +217,13 @@ public class WhiteBoardNetwork : MonoBehaviourPun
 
 
 
-    [ServerRpc]
+  //  [ServerRpc]
     public void TestSendTimeServerRpc(int msg, float time)
     {
         DisplayTestSendTimeClientRpc(msg, time);
     }
 
-    [ClientRpc]
+  //  [ClientRpc]
     private void DisplayTestSendTimeClientRpc(int msg, float time)
     {
 
